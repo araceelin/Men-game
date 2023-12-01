@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анимированные человечки</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .character {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #3498db;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const numberOfCharacters = 10;
+
+            for (let i = 0; i < numberOfCharacters; i++) {
+                createCharacter();
+            }
+
+            function createCharacter() {
+                const character = document.createElement("div");
+                character.className = "character";
+                character.style.left = Math.random() * window.innerWidth + "px";
+                character.style.top = Math.random() * window.innerHeight + "px";
+
+                character.addEventListener("mouseover", function() {
+                    character.style.transform = "scale(1.5)";
+                });
+
+                character.addEventListener("mouseout", function() {
+                    character.style.transform = "scale(1)";
+                });
+
+                document.body.appendChild(character);
+            }
+        });
+    </script>
+
+</body>
+</html>

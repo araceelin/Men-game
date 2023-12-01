@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анимированные человечки</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .character {
+            position: absolute;
+            font-size: 24px;
+            color: #3498db;
+            cursor: pointer;
+            transform-origin: center bottom;
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const numberOfCharacters = 10;
+            const characters = [];
+
+            for (let i = 0; i < numberOfCharacters; i++) {
+                createCharacter();
+            }
+
+            function createCharacter() {
+                const character = document.createElement("div");
+                character.className = "character";
+                character.innerHTML = "&#128105;"; // Человечек (замените на свой символ)
+
+                character.style.left = Math.random() * window.innerWidth + "px";
+                character.style.top = Math.random() * window.innerHeight + "px";
+
+                character.addEventListener("mouseover", function() {
+                    character.style.transform = "scale(1.5)";
+                });
+
+                character.addEventListener("mouseout", function() {
+                    character.style.transform = "scale(1)";
+                });
+
+                document.body.appendChild(character);
+                characters.push(character);
+
+                moveCharacter(character);
+            }
+
+            function moveCharacter(character) {
+                const speed = 2;
+
+                function move() {
+                    const newX = Math.random() * window.innerWidth;
+                    const newY = Math.random() * window.innerHeight;
+
+                    const deltaX = newX - parseFloat(character.style.left);
+                    const deltaY = newY - parseFloat(character.style.top);
+                    const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+                    const duration = distance / speed;
+
+                    character.style.transition = `transform ${duration}s linear`;
+                    character.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1)`;
+
+                    setTimeout(() => {
+                        moveCharacter(character);
+                    }, duration * 1000);
+                }
+
+                move();
+            }
+        });
+    </script>
+
+</body>
+</html>
